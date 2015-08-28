@@ -10,6 +10,14 @@
     font-style: normal;
 }
 
+.page-header {
+    font-family: 'Titan One', cursive; /* <link href='https://fonts.googleapis.com/css?family=Titan+One' rel='stylesheet' type='text/css'> */
+}
+
+body {
+    font-family: 'Bubbler One', sans-serif;
+}
+
 .red-orange-font {
     color: #FE5214;
 }
