@@ -3,19 +3,27 @@ description = This is a sub-theme of theme Lexus Zymphonies, made by Dennis Yau 
 core = 7.x
 base theme = lexus_zymphonies_theme
 
-settings[twitter_url] = "https://twitter.com/Studio_Cosplay"
-settings[facebook_url] = "https://www.facebook.com/studiocosplay"
+features[] = logo
+features[] = name
+features[] = slogan
+features[] = node_user_picture
+features[] = comment_user_picture
+features[] = comment_user_verification
+features[] = favicon
+features[] = main_menu
+features[] = secondary_menu
+
+;settings[breadcrumbs]  = 1
+settings[social_links]  = 1
 settings[twitter_profile_url] = "https://twitter.com/Studio_Cosplay"
 settings[facebook_profile_url] = "https://www.facebook.com/studiocosplay"
 settings[gplus_profile_url] = ""
 settings[linkedin_profile_url] = ""
 settings[instagram_profile_url] = "https://www.instagram.com/StudioCosplay"
-settings[instagram_url] = "https://www.instagram.com/StudioCosplay"
 settings[pinterest_profile_url] = ""
 settings[youtube_profile_url] = ""
 
 ;;; Original 
-;name = Lexus Zymphonies Theme
 
 ;engine = phptemplate
 ;stylesheets[all][] = css/font-awesome.css
@@ -44,17 +52,4 @@ settings[youtube_profile_url] = ""
 ;regions[footer_second]   = Second footer widget
 ;regions[footer_third]    = Third footer widget
 ;regions[footer_forth]    = Forth footer widget
-
-;features[] = logo
-;features[] = name
-;features[] = slogan
-;features[] = node_user_picture
-;features[] = comment_user_picture
-;features[] = comment_user_verification
-;features[] = favicon
-;features[] = main_menu
-;features[] = secondary_menu
-
-;settings[breadcrumbs]  = 1
-;settings[social_links]  = 1
 

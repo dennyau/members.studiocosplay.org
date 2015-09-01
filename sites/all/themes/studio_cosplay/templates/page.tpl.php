@@ -249,7 +249,7 @@
           <li><a class="linkedin" href="<?php echo theme_get_setting('linkedin_profile_url'); ?>" target="_blank" rel="me"><i class="fa fa-linkedin"></i></a></li>
           <li><a class="pinterest" href="<?php echo theme_get_setting('pinterest_profile_url'); ?>" target="_blank" rel="me"><i class="fa fa-pinterest"></i></a></li>
           <li><a class="youtube" href="<?php echo theme_get_setting('youtube_profile_url'); ?>" target="_blank" rel="me"><i class="fa fa-youtube"></i></a></li>
-          <li><a class="email" href="<?php echo theme_get_setting('email_address'); ?>" target="_blank" rel="me"><i class="fa fa-mail-reply"></i></a></li>
+          <li><a class="email" href="<?php echo theme_get_setting('email_address'); ?>" target="_blank" rel="me"><i class="fa fa-envelope"></i></a></li>
           
          </ul>
         </span>
