@@ -215,7 +215,7 @@
 
 <div id="footer">
 
-  <?php if ($page['footer_first'] || $page['footer_second'] || $page['footer_third'] || $page['footer_forth']): ?> 
+  <?php if ($page['footer_first']): ?> 
     <div id="footer-area" class="full-wrap clearfix">
       <?php if ($page['footer_first']): ?>
       <div class="column"><?php print render($page['footer_first']); ?></div>
