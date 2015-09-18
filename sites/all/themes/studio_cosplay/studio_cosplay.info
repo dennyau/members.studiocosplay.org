@@ -1,0 +1,55 @@
+name = Studio Cosplay
+description = This is a sub-theme of theme Lexus Zymphonies, made by Dennis Yau and Mike Reeves under great duress for their dear friends Studio Cosplay
+core = 7.x
+base theme = lexus_zymphonies_theme
+
+features[] = logo
+features[] = name
+features[] = slogan
+features[] = node_user_picture
+features[] = comment_user_picture
+features[] = comment_user_verification
+features[] = favicon
+features[] = main_menu
+features[] = secondary_menu
+
+;settings[breadcrumbs]  = 1
+settings[social_links]  = 1
+settings[twitter_profile_url] = "https://twitter.com/Studio_Cosplay"
+settings[facebook_profile_url] = "https://www.facebook.com/studiocosplay"
+settings[gplus_profile_url] = ""
+settings[linkedin_profile_url] = ""
+settings[instagram_profile_url] = "https://www.instagram.com/StudioCosplay"
+settings[pinterest_profile_url] = ""
+settings[youtube_profile_url] = ""
+
+;;; Original 
+
+;engine = phptemplate
+;stylesheets[all][] = css/font-awesome.css
+;stylesheets[all][] = css/style.css
+;stylesheets[all][] = css/media.css
+;scripts[] = js/custom.js
+
+;regions[search]      	 = Search
+;regions[user_menu]  	 = User menu
+;regions[contact_no]  	 = Contact number
+;regions[slideshow]       = Slideshow
+;regions[top_first]       = First top widget
+;regions[top_second]      = Second top widget
+;regions[top_third]       = Third top widget
+;regions[top_forth]       = Forth top widget
+;regions[top_fifth]       = Fifth top widget
+;regions[top_sixth]       = Sixth top widget
+;regions[sidebar_first]   = First sidebar
+;regions[sidebar_second]  = Second sidebar
+;regions[content]         = Content
+;regions[testimonials]    = Testimonials
+;regions[bottom_widget_1] = First bottom widget
+;regions[bottom_widget_2] = Second bottom widget
+;regions[bottom_widget_3] = Third bottom widget
+;regions[footer_first]    = First footer widget
+;regions[footer_second]   = Second footer widget
+;regions[footer_third]    = Third footer widget
+;regions[footer_forth]    = Forth footer widget
+
