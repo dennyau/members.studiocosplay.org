@@ -1936,3 +1936,6 @@ div.warning {
 .nivoSlider img {
     max-height: 450px;
 }
+#logo img {
+    width: 100%; 
+}
