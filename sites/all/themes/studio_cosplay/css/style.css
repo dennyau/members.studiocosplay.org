@@ -1927,3 +1927,12 @@ div.warning {
 .view-gallery .views-row img:hover{
   opacity: .6;
 }
+
+/** sc **/
+/* The Nivo Slider styles */
+.nivoSlider {
+    max-height: 450px;
+}
+.nivoSlider img {
+    max-height: 450px;
+}
