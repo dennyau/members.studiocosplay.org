@@ -232,6 +232,26 @@
     </div>
   <?php endif; ?>
 
+  <div class="credits">
+    <h1>We &lt;3 you, talk to us!</h1>
+    <p>Have a great idea or a question? We'd love to hear it!</p>
+    <p>Email us at <a href="mailto:contactus@studiocosplay.org" target="_target">contactus@studiocosplay.org</a> or use the form below.</p>
+    <form id="contact-us-form" role="form" action="https://docs.google.com/forms/d/1yljTsrO4C4cQwtQzoYCbXbkDkXeVxQXezf88qdGBGyQ/formResponse" method="POST">
+        <div class="form-group">
+            <label for="entry_100831364">Email Address:</label>
+            <input type="email" class="form-control" id="entry_100831364" name="entry.1008313640" placeholder="email@domain.com">
+        </div>
+        <div class="form-group">
+            <label for="entry_325598639">Subject:</label>
+            <input type="text" class="form-control" id="entry_325598639" name="entry.325598639" placeholder="An awesome idea">
+        </div>
+        <div class="form-group">
+            <label for="entry_1333836498">Message:</label>
+            <textarea class="form-control" id="entry_1333836498" name="entry.1333836498" rows="3" placeholder="Everything is awesome, everything is cool when you're part of a team!"></textarea>
+        </div>
+        <button type="submit" name="submit" id="ss-submit" class="btn btn-large btn-primary">Send Message</button>
+    </form>
+  </div>
   <div class="footer_credit">
       
     <div id="copyright" class="full-wrap clearfix">
@@ -258,9 +278,6 @@
 
     </div>
 
-  </div>
-  <div class="credits">
-    <?php print t('Design by'); ?><a href="http://www.zymphonies.com"> Zymphonies</a>
   </div>
 
 </div>
