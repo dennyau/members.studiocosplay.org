@@ -1929,13 +1929,22 @@ div.warning {
 }
 
 /** sc **/
-/* The Nivo Slider styles */
-.nivoSlider {
-    max-height: 450px;
-}
-.nivoSlider img {
+.nivoSlider, .nivoSlider img {
+    min-height: 250px;
     max-height: 450px;
 }
 #logo img {
     width: 100%; 
 }
+
+.credits input, .credits textarea {
+    min-width: 280px;
+    width: 50%;
+    border-radius: 4px 4px;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+
+
