@@ -20,6 +20,7 @@ regions[slideshow]       = Slideshow
 regions[top_first]       = First top widget
 regions[top_second]      = Second top widget
 regions[top_third]       = Third top widget
+regions[top_separator]   = Top Widget whitespace separator
 regions[top_forth]       = Forth top widget
 regions[top_fifth]       = Fifth top widget
 regions[top_sixth]       = Sixth top widget

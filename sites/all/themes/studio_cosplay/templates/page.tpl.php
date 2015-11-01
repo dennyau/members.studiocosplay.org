@@ -122,6 +122,9 @@
         <?php endif; ?>
       </div>
     <?php endif; ?>
+    <?php if ($page['top_separator']): ?>
+      <div class="page-wrap clearfix"><?php print render($page['top_separator']); ?></div>
+    <?php endif; ?>
     <?php if ($page['top_forth'] || $page['top_fifth'] || $page['top_sixth']): ?> 
       <div class="page-wrap clearfix">
         <?php if ($page['top_forth']): ?>
@@ -171,6 +174,7 @@
             <?php if ($action_links): ?>
               <ul class="action-links"><?php print render($action_links); ?></ul>
             <?php endif; ?>
+            <?php $page['content']['system_main']['default_message'] = array(); // This will remove the 'No front page content has been created yet.'?>
             <?php print render($page['content']); ?>
           </section>
         </div>
