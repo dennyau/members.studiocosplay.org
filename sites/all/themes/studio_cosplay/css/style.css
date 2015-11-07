@@ -1947,4 +1947,16 @@ div.warning {
     text-decoration: inherit;
 }
 
-
+@media only screen and (min-width: 961px) {
+    #top-area .column {
+        min-height: 430px;
+    }
+}
+/*
+#top-area .field-item {
+text-align: center;
+}
+#top-area a:only-child {
+color: black;
+}
+*/
