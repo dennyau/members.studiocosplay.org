@@ -1952,10 +1952,11 @@ div.warning {
         min-height: 430px;
     }
 }
-/*
+
 #top-area .field-item {
-text-align: center;
+    text-align: center;
 }
+/*
 #top-area a:only-child {
 color: black;
 }
