@@ -1490,7 +1490,7 @@ ol.search-results {
   float: right;
 }
 
-#top-area a{
+#top-area a:only-child{
   color: #ECF9FD;
   border: 1px solid #92DAF5;
   padding: 5px 10px;
