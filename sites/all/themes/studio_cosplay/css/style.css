@@ -1204,7 +1204,7 @@ img.scale-with-grid {
   Testimonials
 /*-------------------------------------------*/
 
-.region-testimonials{
+.region-testimonials, .region-top-separator {
   margin: 20px 0;
   text-align: center;
 }
@@ -1492,7 +1492,8 @@ ol.search-results {
 
 #top-area a:only-child{
   color: #ECF9FD;
-  border: 1px solid #92DAF5;
+  color: #000000;
+  border: 1px solid #000000;
   padding: 5px 10px;
   border-radius: 3px;
 }
@@ -1525,15 +1526,15 @@ ol.search-results {
 }
 
 #top-area .column.four{
-  background: #49C9F9;
+  background: #99d4a5;
 }
 
 #top-area .column.five{
-  background: #36BFF2;
+  background: #86c9a0;
 }
 
 #top-area .column.six{
-  background: #4FC8F5;
+  background: #9Fd3a1;
 }
 
 #top-area .fa{
@@ -1929,15 +1930,28 @@ div.warning {
 }
 
 /** sc **/
-.nivoSlider, .nivoSlider img {
-    min-height: 250px;
-    max-height: 450px;
-}
+.nivoSlider, .nivoSlider img { }
 #logo img {
     width: 100%; 
 }
 
-.credits input, .credits textarea {
+div.region-testimonials {
+    border: 1px solid #a5d2da;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+#sc-donate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#sc-donate iframe {
+    height: 25px;
+    width: 100px;
+}
+
+.sc-form input, .credits input, .credits textarea {
     min-width: 280px;
     width: 50%;
     border-radius: 4px 4px;
@@ -1945,19 +1959,33 @@ div.warning {
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
+    line-height: inherit;
 }
 
-@media only screen and (min-width: 961px) {
-    #top-area .column {
-        min-height: 430px;
-    }
+#footer_wrapper {
+    background-color: #ddb3c2;
 }
 
 #top-area .field-item {
     text-align: center;
 }
-/*
-#top-area a:only-child {
-color: black;
+
+#footer_wrapper {
+    padding: 1% 0;
 }
-*/
+
+#top-area img {
+    display: none;
+}
+@media only screen and (min-width: 768px) {
+    #top-area img { display: initial; }
+}
+
+@media only screen and (min-width: 961px) {
+    #footer_wrapper {
+        padding-left: 1%;
+    }
+    #footer-area .column, #top-area .column {
+        min-height: 430px;
+    }
+}
