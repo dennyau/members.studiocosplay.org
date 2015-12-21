@@ -222,6 +222,16 @@ function registration_commerce_form_registration_form_alter(&$form, &$form_state
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function registration_commerce_form_registration_type_overview_form_alter(&$form, &$form_state, $form_id) {
+  $form['table']['#header'][2]['colspan'] = 7;
+  foreach ($form['table']['#rows'] as &$row) {
+    $row[] = l(t('registration commerce settings'), 'admin/structure/registration/registration_types/manage/' . $row[0]['data']['#name'] . '/registration_commerce');
+  }
+}
+
+/**
  * Custom submit handler for registrations.
  *
  * Adds the registration to the cart and redirects if necessary.
@@ -231,7 +241,10 @@ function registration_commerce_registration_submit($form, &$form_state) {
   if (!isset($form_state['values']['add_to_cart']) || (isset($form_state['values']['add_to_cart']) && $form_state['values']['add_to_cart'])) {
     $registration = $form_state['registration'];
     if (registration_commerce_add_to_cart($registration)) {
-      $form_state['redirect'] = 'cart';
+      $type_config = registration_type_load($registration->type);
+      if ($type_config->default_state == $registration->state) {
+        $form_state['redirect'] = 'cart';
+      }
     }
   }
 }
@@ -269,7 +282,7 @@ function registration_commerce_pay_access($registration) {
   else {
     $user_allowed_to_access = user_access('registration_commerce_pay_any_registration', $user);
   }
-  if ($user_allowed_to_access && !empty($settings['purchasable_states'][$registration->state]) && $registration_price['amount'] > 0) {
+  if ($user_allowed_to_access && !empty($settings['purchasable_states'][$registration->state]) && $registration_price['amount'] >= 0) {
     return TRUE;
   }
 
@@ -278,7 +291,7 @@ function registration_commerce_pay_access($registration) {
 
 /**
  * Access callback to check for payment access based on user.
- * 
+ *
  * @todo: this is a pretty inflexible behavior, should probably be based on
  * some kind of permission: sensible behavior requires more thought. Perhaps
  * an option for "allow anonymous payment" should be set and checked here.
@@ -334,7 +347,7 @@ function registration_commerce_line_item_title($line_item) {
 
 /**
  * Line item manager widget form.
- * 
+ *
  * Returns the elements necessary to add a registration line item through a line
  * item manager widget.
  */
@@ -462,7 +475,7 @@ function registration_commerce_line_item_populate($line_item, $registration) {
  * Creates an instance of a product reference field on the specified bundle.
  *
  * The field is both required & locked.
- * 
+ *
  * @string $field_name
  *   The name of the field; if it already exists, a new instance of the existing
  *     field will be created. For fields governed by the Commerce modules, this
@@ -572,6 +585,7 @@ function registration_commerce_registration_reference_create_instance($field_nam
  * Add a registration line item to a user's cart.
  */
 function registration_commerce_cart_registration_add($uid, $line_item) {
+  // A lot of code in this function is copied from commerce_cart_product_add().
   // Do not add the line item if it doesn't have a unit price.
   $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
   if (is_null($line_item_wrapper->commerce_unit_price->value())) {
@@ -592,6 +606,15 @@ function registration_commerce_cart_registration_add($uid, $line_item) {
   // Wrap the order for easy access to field data.
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
+  // Extract the product and quantity we're adding from the incoming line item.
+  $product = $line_item_wrapper->commerce_product->value();
+  $quantity = $line_item->quantity;
+
+  // Invoke the product prepare event with the shopping cart order.
+  rules_invoke_all('commerce_cart_product_prepare', $order, $product, $quantity);
+
+  // Determine if the product already exists on the order and increment its
+  // quantity instead of adding a new line if it does.
   $matching_line_item = NULL;
 
   // Generate an array of properties and fields to compare.
@@ -627,8 +650,31 @@ function registration_commerce_cart_registration_add($uid, $line_item) {
   // Save the updated order.
   commerce_order_save($order);
 
+  // Invoke the product add event with the newly saved or updated line item.
+  rules_invoke_all('commerce_cart_product_add', $order, $product, $quantity, $line_item);
+
   // Return the line item.
   return $line_item;
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function registration_commerce_entity_delete($entity, $type) {
+  if ($type == 'registration') {
+    // Check for related registration commerce line items and delete them.
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'commerce_line_item')
+      ->entityCondition('bundle', 'registration')
+      ->fieldCondition(REGISTRATION_COMMERCE_FIELD, 'target_id', $entity->registration_id, '=')
+      ->addMetaData('account', user_load(1));
+    $result = $query->execute();
+    if (count($result)) {
+      $line_items = reset($result);
+      $line_item_ids = array_keys($line_items);
+      commerce_line_item_delete_multiple($line_item_ids);
+    }
+  }
 }
 
 /**
@@ -637,7 +683,7 @@ function registration_commerce_cart_registration_add($uid, $line_item) {
 function registration_commerce_form_alter(&$form, &$form_state, $form_id) {
   // On the view cart page, disable the edit quantity field for registrations:
   $cart_forms = array('views_form_commerce_cart_form_default', 'views_form_commerce_cart_form_custom_default');
-  if (in_array($form_id, $cart_forms)) {
+  if (in_array($form_id, $cart_forms) && isset($form['edit_quantity'])) {
     foreach ($form['edit_quantity'] as &$qty) {
       if (is_array($qty)) {
         $line_item = commerce_line_item_load($qty['#line_item_id']);
@@ -651,21 +697,35 @@ function registration_commerce_form_alter(&$form, &$form_state, $form_id) {
 
 /**
  * Entity metadata getter callback for the registration price.
- * 
+ *
  * Returns an array formatted as a standard commerce price object.
  */
 function registration_commerce_registration_price_get($data, $info) {
   $result = module_invoke_all('registration_commerce_calculate_price', $data, $info);
   if (!isset($result['amount'])) {
     $settings = registration_commerce_get_settings($data->type);
-    $result = isset($settings['price_defaults']) ? $settings['price_defaults'] : array('amount' => 0, 'currency_code' => commerce_default_currency());
+    if (isset($settings['price_defaults'])) {
+      // Check for the presence of a default price field and use it if set.
+      if (isset($settings['price_defaults']['field']) && strlen($settings['price_defaults']['field'])) {
+        $entity = entity_load_single($data->entity_type, $data->entity_id);
+        $entity_wrapper = entity_metadata_wrapper($data->entity_type, $entity);
+        if (isset($entity_wrapper->{$settings['price_defaults']['field']})) {
+          $result = $entity_wrapper->{$settings['price_defaults']['field']}->value();
+        }
+      }
+    }
+    // If we didn't get a price from the price field, use the default values.
+    if (!isset($result['amount'])) {
+      $result = isset($settings['price_defaults']) ? $settings['price_defaults'] : array('amount' => 0, 'currency_code' => commerce_default_currency());
+    }
+
   }
   return $result;
 }
 
 /**
  * Entity metadata callback for the amount property.
- * 
+ *
  * This exists specifically for use with rules.
  */
 function registration_commerce_registration_amount_get($data, $info) {
@@ -685,7 +745,7 @@ function registration_commerce_registration_currency_get($data, $info) {
 
 /**
  * Helper/API function to load the registration commerce settings.
- * 
+ *
  * @string $registration_type
  *   The machine name of the registration type to load settings from.
  */

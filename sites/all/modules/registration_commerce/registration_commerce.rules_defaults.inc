@@ -14,7 +14,7 @@ function registration_commerce_default_rules_configuration() {
 
   $rule->label = t('Set registration product price from referenced registration');
   $rule->active = TRUE;
-  $rule->weight = 5;
+  $rule->weight = -1;
   $rule->tags = array("Commerce Cart", "Registration Commerce");
   $rule
     ->event('commerce_product_calculate_sell_price')

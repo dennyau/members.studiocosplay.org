@@ -13,37 +13,22 @@ function registration_commerce_enable() {
   // Create a simple product to be used as the referenced product on
   // registration line items:
   if (!variable_get('registration_commerce_product', FALSE)) {
-    $form_state = array();
-    $form_state['values'] = array();
-    $form = array();
-    $form['#parents'] = array();
-
-    // Generate a new product object:
-    $new_product = commerce_product_new('product');
-
-    $new_product->status = TRUE;
-    $new_product->uid = 1;
-
-    $new_product->sku = 'REGISTRATION';
-    $new_product->title = t('Registration');
-    $new_product->created = $new_product->changed = time();
-
-    $price = array(
-      LANGUAGE_NONE => array(
-        0 => array(
-          'amount' => 0,
-          'currency_code' => commerce_default_currency(),
-        ),
-      ),
+    //create default donation product
+    $registration_product_settings = array(
+      'sku' => 'REGISTRATION',
+      'title' => t('Registration'),
+      'type' => 'product',
     );
-    $new_product->commerce_price = $price;
+    $registration_product = entity_create('commerce_product', $registration_product_settings);
+    $wrapper = entity_metadata_wrapper('commerce_product', $registration_product);
+    $wrapper->commerce_price = array(
+      'amount' => 0,
+      'currency_code' => 'USD',
+    );
+    $wrapper->uid = 1;
+    entity_save('commerce_product', $registration_product);
 
-    // Notify field widgets to save their field data:
-    field_attach_submit('commerce_product', $new_product, $form, $form_state);
-
-    commerce_product_save($new_product);
-
-    variable_set('registration_commerce_product', $new_product->product_id);
+    variable_set('registration_commerce_product', $registration_product->product_id);
   }
 }
 
