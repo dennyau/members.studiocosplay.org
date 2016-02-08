@@ -236,26 +236,35 @@
     </div>
   <?php endif; ?>
 
-  <div class="credits">
-    <h1>We &lt;3 you, talk to us!</h1>
-    <p>Have a great idea or a question? We'd love to hear it!</p>
-    <p>Email us at <a href="mailto:contactus@studiocosplay.org" target="_target">contactus@studiocosplay.org</a> or use the form below.</p>
-    <form id="contact-us-form" role="form" action="https://docs.google.com/forms/d/1yljTsrO4C4cQwtQzoYCbXbkDkXeVxQXezf88qdGBGyQ/formResponse" method="POST">
-<div class="input-group margin-bottom-sm">
-    <input class="form-control" type="text" placeholder="&#xf0e0; youremail@domain.com" id="entry_100831364" name="entry.1008313640">
-</div>
-<div class="input-group margin-bottom-sm">
-    <input type="text" class="form-control" id="entry_325598639" name="entry.325598639" placeholder="&#xf12a; Your awesome idea subject title">
-</div>
-    <div class="input-group margin-bottom-sm">
-    <label for="entry_1333836498">Your Message to Us!:</i></span></label>
-    <textarea class="form-control" id="entry_1333836498" name="entry.1333836498" rows="10"
-        placeholder='&#xf075; Your cool message to us!  i.e. "Everything is awesome, everything is cool when ..."'></textarea>
-</div>
-        <button type="submit" name="submit" id="ss-submit" class="btn btn-large btn-primary">Send Message</button>
+  <div id="mc_embed_signup" class="credits">
+    <form action="//StudioCosplay.us12.list-manage.com/subscribe/post?u=006154eedadc6dadd43174bba&amp;id=20f6149d2e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+      <div id="mc_embed_signup_scroll">
+        <h1>We &lt;3 you, talk to us!</h1>
+        <p>Have a great idea or a question? We'd love to hear it!</p>
+        <p>Email us at <a href="mailto:contactus@studiocosplay.org" target="_target">contactus@studiocosplay.org</a> or use the form below to join our mailing list.</p>
+        <div class="mc-field-group">
+          <label for="mce-EMAIL">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="&#xf0e0; required.field@email.com">
+        </div>
+        <div class="mc-field-group">
+          <label for="mce-FNAME">First Name </label>
+          <input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+        </div>
+        <div class="mc-field-group">
+          <label for="mce-LNAME">Last Name </label>
+          <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
+        </div>
+        <div id="mce-responses" class="clear">
+          <div class="response" id="mce-error-response" style="display:none"></div>
+          <div class="response" id="mce-success-response" style="display:none"></div>
+        </div>
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_006154eedadc6dadd43174bba_20f6149d2e" tabindex="-1" value=""></div>
+        <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+      </div>
     </form>
-
   </div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+<script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
   <div class="footer_credit">
       
     <div id="copyright" class="full-wrap clearfix">
@@ -285,3 +294,12 @@
   </div>
 
 </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55297291-1', 'auto');
+  ga('send', 'pageview');
+</script>
