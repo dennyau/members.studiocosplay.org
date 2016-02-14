@@ -52,6 +52,18 @@ function registration_commerce_rules_action_info() {
     ),
   );
 
+  $actions['registration_commerce_delete_order_registrations'] = array(
+    'label' => t('Delete all registrations in an order'),
+    'group' => t('Registration'),
+    'parameter' => array(
+      'commerce_order' => array(
+        'type' => 'commerce_order',
+        'label' => t('Commerce Order'),
+        'description' => t('All registrations on this order will be deleted.'),
+      ),
+    ),
+  );
+
   return $actions;
 }
 
@@ -78,13 +90,20 @@ function registration_commerce_item_can_register($line_item) {
     return TRUE;
   }
 
+  $errors = array();
   $status = registration_status(
     $line_item_wrapper->{REGISTRATION_COMMERCE_FIELD}->entity_type->value(),
     $line_item_wrapper->{REGISTRATION_COMMERCE_FIELD}->entity_id->value(),
     FALSE,
     1,
-    $line_item_wrapper->{REGISTRATION_COMMERCE_FIELD}->registration_id->value()
+    $line_item_wrapper->{REGISTRATION_COMMERCE_FIELD}->registration_id->value(),
+    $errors
   );
+
+  if (!$status) {
+    form_set_error('', t('Sorry, unable to register for %label due to: %errors.',
+      array('%label' => entity_label('registration',$line_item_wrapper->registration_commerce_reg->value()), '%errors' => implode(', ', $errors))));
+  }
 
   return $status;
 }
@@ -111,6 +130,23 @@ function registration_commerce_set_state($order, $registration_state) {
       $registration->state = $registration_state;
       registration_save($registration);
     }
+  }
+}
+
+/**
+ * Action callback.
+ *
+ * Deletes all registrations on an order.
+ */
+function registration_commerce_delete_order_registrations($order) {
+  $registration_ids = array();
+  foreach (entity_metadata_wrapper('commerce_order', $order)->commerce_line_items as $delta => $line_item_wrapper) {
+    if ($line_item_wrapper->type->value() == 'registration') {
+      $registration_ids[] = $line_item_wrapper->{REGISTRATION_COMMERCE_FIELD}->registration_id->value();
+    }
+  }
+  if ($registration_ids) {
+    registration_delete_multiple($registration_ids);
   }
 }
 
